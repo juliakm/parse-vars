@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 
 namespace parse_vars
 {
+
     class Program
     {
         static void Main(string[] args)
@@ -30,7 +31,7 @@ namespace parse_vars
                 var separator = "--";
                 var descriptionHeading = "## Description";
 
-                Console.WriteLine(variable);
+                //Console.WriteLine(variable);
                 //Console.WriteLine(description);
 
                string[] lines = {variable};
@@ -41,14 +42,19 @@ namespace parse_vars
                 w.WriteLine(descriptionHeading);
                 w.WriteLine(definition);
                 w.WriteLine(separator);
-                //}
-
+                    //}
 
             }
         }
 
+            //Test to write the file (imaginary)
+            string message = "Booya";
+            writeFile.Writer(message);
 
 
-     }
+
+        }
     }
+
+
 }
