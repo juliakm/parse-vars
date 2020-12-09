@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using HtmlAgilityPack;
 
@@ -55,8 +56,13 @@ namespace parse_vars
         }
 
             //Test to write the file (imaginary)
-            string message = "Booya";
-            writeFile.Writer(message);
+            //string message = "Booya";
+            //writeFile.Writer(message);
+
+            //int[] theArray = { 1, 3, 5, 7, 9 };
+
+            string[] monikers = { "azure-devops", "azure-devops-2020" };
+            MapVariables.Mapper(monikers);
 
 
 
