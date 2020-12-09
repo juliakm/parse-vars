@@ -15,6 +15,11 @@ namespace parse_vars
         var htmlDoc = web.Load(html);
         var node = htmlDoc.DocumentNode.SelectSingleNode("//head/title");
         Console.WriteLine("Node Name: " + node.Name + "\n" + node.OuterHtml);
+
+        var heading = htmlDoc.DocumentNode.SelectSingleNode("//h2");
+
+        Console.WriteLine("Node Name: " + heading.Name + "\n" + heading.InnerHtml);
+
         
         // init File and clear out existing text
         StreamWriter w = new StreamWriter("WriteVars.txt", false);
@@ -28,6 +33,7 @@ namespace parse_vars
 
                 var variable = nodes[0].InnerText;
                 var definition = nodes[1].InnerText;
+                //var templates = nodes[2].InnerText;
                 var separator = "--";
                 var descriptionHeading = "## Description";
 
@@ -41,6 +47,7 @@ namespace parse_vars
                 w.WriteLine();
                 w.WriteLine(descriptionHeading);
                 w.WriteLine(definition);
+                //w.WriteLine(templates);
                 w.WriteLine(separator);
                     //}
 
