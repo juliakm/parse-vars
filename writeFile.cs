@@ -7,9 +7,6 @@ namespace parse_vars
     {
         public static void Writer(string arg)
         {
-            //string message;
-            //message = "Booya";
-            //Console.WriteLine(arg);
             string fileName = Path.GetRandomFileName();
             Console.WriteLine(fileName);
             //for (int i = 1; i <= 5; i++)
