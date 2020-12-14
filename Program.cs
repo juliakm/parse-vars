@@ -38,8 +38,6 @@ namespace parse_vars
             //                  azure-devops-2020 -> text
             //                  azure-devops-2019 -> text
             // each variable can point to multiple monikers
-
-            //define VarData
             Dictionary<string,string> VarData = new Dictionary<string, string>();
 
              // This is our "outer" loop, we will iterate the moniker list, and hit the page for that version
@@ -56,12 +54,8 @@ namespace parse_vars
                 // Builds htmlDoc, object that holds a page and its values
                 HtmlWeb web = new();
                 var htmlDoc = web.Load(url);
-                //var rows = htmlDoc.DocumentNode.SelectNodes("//*[@id='main']//tr"); //search for right moniker data-moniker
 
-                //Console.WriteLine(moniker);
                 var regex = $"//*[@id='main']//div[@data-moniker=\"{moniker}\"]//tr";
-                //Console.WriteLine(regex);
-
                 var rows = htmlDoc.DocumentNode.SelectNodes(regex);
               
                 foreach (var row in rows)
@@ -69,14 +63,11 @@ namespace parse_vars
                     var nodes = row.SelectNodes("td"); //grabbing each <td> within a row
                     if (nodes != null) // if the <td> is not empty
                     {
-
-                        // We will simulate a single variable here, Agent.BuildDirectory
-                        //string name = "Agent.BuildDirectory";
-                        //return text = $"This is the body text for Agent.BuildDirectory for {moniker}.";
+                        //Grab each table data cell
                         var name = nodes[0].InnerText;
                         var text = nodes[1].InnerText;
 
-
+                        // Debugging to make sure there aren't multiple loops
                         //Console.WriteLine("{0}: {1}", moniker, name);
 
                         // if this is the first time, add to the dictionary
@@ -87,7 +78,6 @@ namespace parse_vars
 
                         }
 
-                        // if we know that the variable is there, then stuff in the moniker and this version of the text
                         Dictionary<string, string> details = variables[name];
                         details.Add(moniker, text); //add the moniker and text to details
                     }
@@ -95,17 +85,14 @@ namespace parse_vars
                 }
 
             }
-            
 
-            // Code should live outside of this
             //for each variable in the dictionary, write out its content
             // in the appropriate moniker blocks
-            List<string> sortedVariables = variables.Keys.ToList<string>();
-            sortedVariables.Sort();
+            variables.Keys.ToList().Sort();
 
             // Traverse the sorted list and use these keys to access the dictionary
             // Go though every variable (this includes all the variables by moniker, even the ones that don't exist for the moniker)
-            foreach(string varName in sortedVariables)
+            foreach(string varName in variables.Keys.ToList())
             {
                 // varName is the first variable, and varDetails is the dictionary mapping
                 // its monikers to that version of the variable
@@ -136,11 +123,25 @@ namespace parse_vars
 
                 // // Write out some page content
                 Console.WriteLine("# {0}\r\n", varName);
-
                 Console.WriteLine("---\r\n");
 
 
-        }
+                foreach (string moniker in monikers)
+                {
+                    if (varDetails.ContainsKey(moniker))
+                    {
+                        // We have content for this moniker
+                        Console.WriteLine("::: moniker range=\"{0}\"", moniker);
+                        Console.WriteLine();
+                        Console.WriteLine(varDetails[moniker]);
+                        Console.WriteLine();
+                        Console.WriteLine("::: moniker-end");
+                        Console.WriteLine();
+                    }
+                }
+
+
+            }
 
 
         }
