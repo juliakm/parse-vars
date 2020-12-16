@@ -25,3 +25,8 @@ obj/Debug/net5.0/parse-vars.GeneratedMSBuildEditorConfig.editorconfig
 obj/Debug/net5.0/parse-vars.genruntimeconfig.cache
 obj/Debug/net5.0/parse-vars.pdb
 obj/Debug/net5.0/ref/parse-vars.dll
+.vscode/tasks.json
+.vscode/launch.json
+.vs/parse-vars/xs/project-cache/parse-vars-Debug.json
+.vs/parse-vars/xs/UserPrefs.xml
+parse-vars.sln
