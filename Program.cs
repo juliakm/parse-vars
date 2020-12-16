@@ -27,6 +27,9 @@ namespace parse_vars
                // "tfs-2013"
             };
 
+            // Clear out file we will work with later
+               File.WriteAllText("WriteVars.txt", String.Empty);
+
             // Set up Dictionary
             // We have variables, each one has a name, and each supported monikered version some text
             // We can represent this with a Dictionary that maps variable name to the collection of
@@ -115,6 +118,12 @@ namespace parse_vars
                         monikerVersionsSB.Append(monikerInstance); 
                     }
                 }
+
+            // Create the file
+            StreamWriter w = new StreamWriter("WriteVars.txt", true);
+            using (w) 
+            {
+                // Write to Console
                 // Write out some metadata including the moniker string
                 Console.WriteLine("---");
                 Console.WriteLine("title: {0}", varName);
@@ -125,6 +134,17 @@ namespace parse_vars
                 Console.WriteLine("# {0}\r\n", varName);
                 Console.WriteLine("---\r\n");
 
+
+                // Write to file
+                // Write out some metadata including the moniker string
+                w.WriteLine("---");
+                w.WriteLine("title: {0}", varName);
+                w.WriteLine("monikerRange: '{0}'", monikerVersionsSB.ToString());
+                w.WriteLine("---\r\n");
+
+                // // Write out some page content
+                w.WriteLine("# {0}\r\n", varName);
+                w.WriteLine("---\r\n");
 
                 foreach (string moniker in monikers)
                 {
@@ -137,7 +157,18 @@ namespace parse_vars
                         Console.WriteLine();
                         Console.WriteLine("::: moniker-end");
                         Console.WriteLine();
+
+                        w.WriteLine("::: moniker range=\"{0}\"", moniker);
+                        w.WriteLine();
+                        w.WriteLine(varDetails[moniker]);
+                        w.WriteLine();
+                        w.WriteLine("::: moniker-end");
+                        w.WriteLine();
+
+
+                        //Write to file
                     }
+                }
                 }
 
 
