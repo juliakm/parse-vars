@@ -68,7 +68,9 @@ namespace parse_vars
                     {
                         //Grab each table data cell
                         var name = nodes[0].InnerText;
-                        var text = nodes[1].InnerText;
+                        var text = nodes[1].InnerHtml; //InnerHtml will preserve HTML. Need to do Markdown conversion 
+                        // TODO: Ask Mike 
+
 
                         // Debugging to make sure there aren't multiple loops
                         //Console.WriteLine("{0}: {1}", moniker, name);
@@ -120,8 +122,8 @@ namespace parse_vars
                 }
 
             // Create the file
-            StreamWriter w = new StreamWriter("WriteVars.txt", true);
-            using (w) 
+           // StreamWriter w = new StreamWriter("WriteVars.txt", true);
+            using (StreamWriter w = new StreamWriter("WriteVars.txt", true)) 
             {
                 // Write to Console
                 // Write out some metadata including the moniker string
