@@ -5,7 +5,7 @@ using HtmlAgilityPack;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text;
-
+using BFound.HtmlToMarkdown;
 
 namespace parse_vars
 {
@@ -68,8 +68,12 @@ namespace parse_vars
                     {
                         //Grab each table data cell
                         var name = nodes[0].InnerText;
-                        var text = nodes[1].InnerHtml; //InnerHtml will preserve HTML. Need to do Markdown conversion 
+                        var textTemp = nodes[1].InnerHtml; //InnerHtml will preserve HTML. Need to do Markdown conversion 
                         // TODO: Ask Mike 
+
+                        var markdown = MarkDownDocument.FromHtml(textTemp);
+                        var text = markdown;
+
 
 
                         // Debugging to make sure there aren't multiple loops

@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BFound.HtmlToMarkdown" Version="0.0.5" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.28" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="PandocFilters" Version="0.1.6" />
+    <PackageReference Include="PandocTasks" Version="0.1.2" />
   </ItemGroup>
 
 </Project>
